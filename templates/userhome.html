@@ -10,7 +10,7 @@
             margin-top: 10vh;
             /* border: 1px solid black; */
             display: flex;
-            gap: 10vw;
+            gap: 5vw;
             justify-content: center;
         }
         
@@ -20,6 +20,13 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
+        }
+        #topimage{
+            height: 70vh;
+        }
+        #balance{
+            font-size: 3vmin;
+            /* font-weight: bold; */
         }
 
         @media only screen and (max-width: 600px) {
@@ -37,12 +44,63 @@
         display: block;
         
        }
+       #topimage{
+        height: 40vh;
+       }
+       #balance{
+        font-size: 5vmin;
+       }
 }
     </style>
 </head>
 <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Crypteon</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <!-- top image -->
+      <div class="container" style="display: flex;justify-content: center;">
+        <img src="https://happay.com/blog/wp-content/uploads/sites/12/2022/09/baas-banking-as-a-service-.png" class="img-fluid" alt="..." id="topimage">
+      </div>
+     
+
+
     <h1>Welcome&nbsp;  {{session.username}}</h1> <br> <br>
-    <p>Your Account Balance is: {{session.balance}} Crypteon</p>
+    <p id="balance">Your Account Balance is: <b>{{session.balance}} Crypteon</b></p>
 
     <div class="box1">
         <div class="childbox">
@@ -52,7 +110,7 @@
             <a href="/debit"><button type="button" class="btn btn-success btn-lg" style="border-radius: 0px;">Debit</button></a>
         </div>
         <div class="childbox">
-            <a href="/transfer"><button type="button" class="btn btn-success btn-lg" style="border-radius: 0px;">Transfer Money</button></a>
+            <a href="/transfer"><button type="button" class="btn btn-success btn-lg" style="border-radius: 0px;">Transfer</button></a>
         </div>
         </div>
 
