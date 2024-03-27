@@ -67,7 +67,7 @@ def userhome():
                 return "<h1>wrong password</h1>"
         else:
             return "<h1>user not found</h1>"
-    return render_template('signin.html')
+    return render_template('userhome.html')
 
 @app.route('/credit',methods=['POST','GET'])
 def credit():
