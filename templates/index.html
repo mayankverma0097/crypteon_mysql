@@ -11,11 +11,22 @@
     h1{
       color: rgb(10, 56, 131);
     }
-#topimage{
-  height: 70vh;
-}
+    #topimage{
+            height: 70vh;
+            border-radius: 50%;
+            rotate: -45deg;
+            transition: 1s;
+        }
+        #topimage:hover{
+          transform:rotate(45deg);
+        }
 #tagline{
   font-size: 3vmin;
+}
+.container1{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 @media only screen and (max-width: 600px) {
   #topimage{
@@ -70,12 +81,10 @@
     </div>
   </nav>
 
-  <h1>Crypteon</h1>
-  <p id="tagline">A Smarter way for transaction</p>
-
+  
       <!-- top image -->
-      <div class="container" style="display: flex;justify-content: center;">
-        <img src="https://happay.com/blog/wp-content/uploads/sites/12/2022/09/baas-banking-as-a-service-.png" class="img-fluid" alt="..." id="topimage">
+      <div class="container1" style="display: flex;justify-content: center;width: 93%;background-color: rgb(38, 38, 53);border-radius: 10px;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+        <img src="/static/logo-color.png" class="img-fluid" alt="..." id="topimage">
       </div>
 
 
@@ -84,8 +93,8 @@
     <div class="card mx-4 mx-md-5 shadow-5-strong" style="
           
           background: hsla(0, 0%, 100%, 0.8);
-          backdrop-filter: blur(30px);
-          ">
+          backdrop-filter: blur(30px);margin-top: 10vh;margin-bottom: 10vh;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
       <div class="card-body py-5 px-md-5">
 
         <div class="row d-flex justify-content-center">
