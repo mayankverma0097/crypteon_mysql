@@ -4,7 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
 app.secret_key="transactions"
 
-app.config['SQLALCHEMY_DATABASE_URI']="postgresql://ldtlnmfw:rq_vrFr9IMuRSCDlBGyMqhgpR34NE1tR@hansken.db.elephantsql.com/ldtlnmfw"
+# app.config['SQLALCHEMY_DATABASE_URI']="postgresql://ldtlnmfw:rq_vrFr9IMuRSCDlBGyMqhgpR34NE1tR@hansken.db.elephantsql.com/ldtlnmfw"
+
+# mysql database clever cloud
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ubnj2smz4k3uslz9:aQuJwk91H11HbUi7iscq@brdajmr1jmxokswqenrx-mysql.services.clever-cloud.com:3306/brdajmr1jmxokswqenrx'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATION']=False
 db=SQLAlchemy(app)
 app.app_context().push()
