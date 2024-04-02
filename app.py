@@ -42,22 +42,19 @@ def signup():
         username=request.form['username']
         password=request.form['password']
         # print(name,username,password)
-        a=True
         try:
             user=User.query.filter_by(username=username).first()
         except:
             pass
         
         if not user:
-            try:
+            if len(name)<=30 and len(username)<=30 and len(password)<=30:
+
                 data=User(name=name,username=username,password=password,balance=0)
                 db.session.add(data)
                 db.session.commit()
-                a=True
-            except:
-                a=False
-            if a==False:
-                return "<center><h1>please enter valid value</h1></center>"
+            else:
+                return "<center><h1>Please enter valid value</h1></center>"   
         else:
             return "<center><h1>user already present</h1></center>"
     return redirect('/')
