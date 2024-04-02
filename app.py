@@ -4,9 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
 app.secret_key="transactions"
 
-# app.config['SQLALCHEMY_DATABASE_URI']="postgresql://ldtlnmfw:rq_vrFr9IMuRSCDlBGyMqhgpR34NE1tR@hansken.db.elephantsql.com/ldtlnmfw"
+# sqlite database 
+# app.config['SQLALCHEMY_DATABASE_URI']="postgresql://utaai4i6bcjecbhcpy7f:9N7FEoLUGnMnS2bF67ABzrvRNoFrKU@bhaugryd6b281f3vgm2c-postgresql.services.clever-cloud.com:50013/bhaugryd6b281f3vgm2c"
 
-# mysql database clever cloud
+
+# mysql database 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ubnj2smz4k3uslz9:aQuJwk91H11HbUi7iscq@brdajmr1jmxokswqenrx-mysql.services.clever-cloud.com:3306/brdajmr1jmxokswqenrx'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATION']=False
@@ -40,9 +42,24 @@ def signup():
         username=request.form['username']
         password=request.form['password']
         # print(name,username,password)
-        data=User(name=name,username=username,password=password,balance=0)
-        db.session.add(data)
-        db.session.commit()
+        a=True
+        try:
+            user=User.query.filter_by(username=username).first()
+        except:
+            pass
+        
+        if not user:
+            try:
+                data=User(name=name,username=username,password=password,balance=0)
+                db.session.add(data)
+                db.session.commit()
+                a=True
+            except:
+                a=False
+            if a==False:
+                return "<center><h1>please enter valid value</h1></center>"
+        else:
+            return "<center><h1>user already present</h1></center>"
     return redirect('/')
 
 @app.route('/signin')
@@ -65,6 +82,7 @@ def userhome():
             if user.password==password:
                 session['id']=user.id
                 session['username']=user.username
+                session['name']=user.name
                 session['balance']=user.balance
                 return render_template('userhome.html')
             else:
