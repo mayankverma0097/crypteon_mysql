@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template,redirect,session
 from flask_sqlalchemy import SQLAlchemy
+import time
 
 app=Flask(__name__)
 app.secret_key="transactions"
@@ -9,7 +10,7 @@ app.secret_key="transactions"
 
 
 # mysql database 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ubnj2smz4k3uslz9:aQuJwk91H11HbUi7iscq@brdajmr1jmxokswqenrx-mysql.services.clever-cloud.com:3306/brdajmr1jmxokswqenrx'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ukwtzofo2dd1ktk6:01aAgsJTJsXWAwgxG1T3@bmefhufz3eytgfyziudf-mysql.services.clever-cloud.com:3306/bmefhufz3eytgfyziudf'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATION']=False
 db=SQLAlchemy(app)
@@ -44,8 +45,11 @@ def signup():
         # print(name,username,password)
         try:
             user=User.query.filter_by(username=username).first()
-        except:
-            pass
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user=User.query.filter_by(username=username).first()
         
         if not user:
             if len(name)<=30 and len(username)<=30 and len(password)<=30:
@@ -72,8 +76,11 @@ def userhome():
         password=request.form['password']
         try:
             user=User.query.filter_by(username=username).first()
-        except:
-            pass
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user=User.query.filter_by(username=username).first()
         
         if user:
             if user.password==password:
@@ -92,7 +99,13 @@ def userhome():
 def credit():
     if request.method=='POST':
         amount=request.form['amount']
-        user=User.query.filter_by(username=session['username']).first()
+        try:
+            user=User.query.filter_by(username=session['username']).first()
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user=User.query.filter_by(username=session['username']).first()
         # print("hello world",user.balance)
         amount=float(amount)
         user.balance=user.balance+amount
@@ -108,7 +121,13 @@ def debit():
         amount=request.form['amount']
         amount=float(amount)
         # print(amount)
-        user=User.query.filter_by(username=session['username']).first()
+        try:
+            user=User.query.filter_by(username=session['username']).first()
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user=User.query.filter_by(username=session['username']).first()
         if user.balance>0:
             if amount<=user.balance:
                 user.balance=user.balance-amount
@@ -128,11 +147,20 @@ def transfer():
         username=request.form['username']
         amount=request.form['amount']
         amount=float(amount)
-        user=User.query.filter_by(username=session['username']).first()
+        try:
+            user=User.query.filter_by(username=session['username']).first()
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user=User.query.filter_by(username=session['username']).first()
         try:
             user1=User.query.filter_by(username=username).first()
-        except:
-            pass
+        except Exception as e:
+            db.session.rollback()
+            time.sleep(1)
+            db.session.begin()
+            user1=User.query.filter_by(username=username).first()
         if user1:
             if user.balance>0:
                 if amount<=user.balance:
